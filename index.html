@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo SQL Injection - Avanzado</title>
+    <link rel="icon" href="https://qawerk.es/wp-content/uploads/2021/07/Cover.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Menú</h2>
+        <button class="vulnerable" onclick="showTab('login-vulnerable')">Login Vulnerable</button>
+        <button class="seguro" onclick="showTab('login-seguro')">Login Seguro</button>
+        <button class="ejemplos" onclick="showTab('ejemplos')">Ejemplos de Inyección</button>
+        <button class="prevencion" onclick="showTab('prevencion')">Prevención de SQL Injection</button>
+        <div class="sidebar-image">
+            <img src="https://lh4.googleusercontent.com/proxy/2SFccMW_3iZBfg1Qr7q5rmnH3XuNbpRU0aCDf80tHJBMUJzULfWWK59RykeVmVCBJCadeymtVbfPQxKSJOp8jwaGsKhp_CXf5-CR_SjNrXc" alt="SQL Injection">
+        </div>
+        <div class="mountains"></div>
+    </div>
+
+    <div class="main-content">
+        <h1>Demo SQL Injection</h1>
+        <div id="welcome-image" class="welcome-image">
+            <img src="https://www.cloudflare.com/img/learning/security/threats/sql-injection-attack/sql-injection-infographic.png" alt="SQL Injection Infographic">
+        </div>
+
+        <div id="login-vulnerable" class="tab-content">
+            <h2>Login Vulnerable a SQL Injection</h2>
+            <div class="input-group">
+                <label for="username-vuln">Usuario</label>
+                <input type="text" id="username-vuln" placeholder="Usuario">
+            </div>
+            <div class="input-group">
+                <label for="password-vuln">Contraseña</label>
+                <input type="password" id="password-vuln" placeholder="Contraseña">
+            </div>
+            <div class="button-container">
+                <button class="mint" onclick="loginVulnerable()">Iniciar Sesión</button>
+            </div>
+            <div id="result-vuln" class="result"></div>
+        </div>
+
+        <div id="login-seguro" class="tab-content" style="display: none;">
+            <h2>Login Protegido contra SQL Injection</h2>
+            <div class="input-group">
+                <label for="username-secure">Usuario</label>
+                <input type="text" id="username-secure" placeholder="Usuario">
+            </div>
+            <div class="input-group">
+                <label for="password-secure">Contraseña</label>
+                <input type="password" id="password-secure" placeholder="Contraseña">
+            </div>
+            <div class="button-container">
+                <button class="mint" onclick="loginSeguro()">Iniciar Sesión</button>
+            </div>
+            <div id="result-secure" class="result"></div>
+        </div>
+
+        <div id="ejemplos" class="tab-content" style="display: none;">
+            <h2>Ejemplos de Comandos de Inyección SQL</h2>
+            <div class="ejemplos-container">
+                <p>Prueba estos comandos en el <strong>Login Vulnerable</strong>:</p>
+                <ul>
+                    <li><code>' OR '1'='1</code> - Bypass de autenticación.</li>
+                    <li><code>' OR '1'='1' -- </code> - Comentario para ignorar el resto de la consulta.</li>
+                    <li><code>admin' -- </code> - Acceder como "admin" sin contraseña.</li>
+                    <li><code>'; DROP TABLE users; -- </code> - Eliminar la tabla de usuarios (simulado).</li>
+                    <li><code>' UNION SELECT null, null, null -- </code> - Inyección con UNION.</li>
+                    <li><code>' OR EXISTS(SELECT * FROM users) -- </code> - Verificar existencia de tablas.</li>
+                    <li><code>' OR '1'='1' LIMIT 1 -- </code> - Limitar resultados.</li>
+                </ul>
+                <p><strong>Nota:</strong> Estos comandos son simulados y no afectan una base de datos real.</p>
+            </div>
+        </div>
+
+        <div id="prevencion" class="tab-content" style="display: none;">
+            <h2>Prevención de SQL Injection</h2>
+            <div class="prevencion-container">
+                <p>Para evitar las vulnerabilidades de inyección SQL, sigue estas prácticas:</p>
+                <ul>
+                    <li><strong>Usar Prepared Statements:</strong> Utiliza consultas parametrizadas para separar el código SQL de los datos del usuario.</li>
+                    <li><strong>Validar y Sanitizar Entradas:</strong> Asegúrate de que los datos ingresados por el usuario sean válidos y no contengan caracteres peligrosos.</li>
+                    <li><strong>Usar ORMs:</strong> Los Object-Relational Mappers (ORMs) como Hibernate o Entity Framework pueden ayudar a prevenir inyecciones SQL.</li>
+                    <li><strong>Limitar Privilegios:</strong> Asegúrate de que las cuentas de base de datos tengan los privilegios mínimos necesarios.</li>
+                    <li><strong>Actualizar y Parchear:</strong> Mantén tu software y bases de datos actualizados con los últimos parches de seguridad.</li>
+                </ul>
+                <h3>Ejemplo de Código Seguro (Prepared Statements):</h3>
+                <pre>
+                    <code>
+                // Ejemplo en PHP con MySQLi
+                $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+                $stmt->bind_param("ss", $username, $password);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                    </code>
+                </pre>
+            </div>
+        </div>
+
+        <div id="protected-area" class="tab-content" style="display: none;">
+            <h2>Área Protegida</h2>
+            <p>Bienvenido, <span id="logged-user"></span>. Has iniciado sesión correctamente.</p>
+            <div class="button-container">
+                <button class="blue" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar bienvenida y base de datos -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Bienvenido</h3>
+            <p>Has iniciado sesión correctamente.</p>
+            <h4>Base de Datos:</h4>
+            <pre id="database-data">
+-- Ejemplo de registros en la base de datos
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (username, password) VALUES ('admin', 'password123');
+INSERT INTO users (username, password) VALUES ('user1', 'mypassword');
+            </pre>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar datos de la base de datos -->
+    <div id="database-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Datos de la Base de Datos</h3>
+            <pre id="modal-sql-data"></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    margin-right: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; /* Necesario para la montaña */
+}
+
+.sidebar h2 {
+    color: #2a5298;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar button {
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.sidebar .vulnerable {
+    background: #dc3545; /* Rojo */
+}
+
+.sidebar .seguro {
+    background: #28a745; /* Verde */
+}
+
+.sidebar .ejemplos {
+    background: #007bff; /* Azul */
+}
+
+.sidebar .prevencion {
+    background: #17a2b8; /* Cian */
+}
+
+.sidebar button:hover {
+    opacity: 0.8;
+}
+
+.sidebar-image {
+    margin-top: auto; /* Empuja la imagen hacia abajo */
+}
+
+.sidebar-image img {
+    width: 100%; /* Aumenta el tamaño de la imagen */
+    height: auto; /* Mantiene la proporción */
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.mountains {
+    background: url('https://path-to-your-mountain-image.png') no-repeat center bottom; /* Cambia esto por la URL de tu imagen de montañas */
+    background-size: cover;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.main-content {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.welcome-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-image img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2 {
+    color: #2a5298;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #2a5298;
+    outline: none;
+}
+
+.button-container {
+    text-align: center; /* Centra el botón */
+    margin-top: 20px; /* Espacio adicional si es necesario */
+}
+
+.mint {
+    background: #215cf2; /* Verde menta */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%; /* Mantiene el botón del ancho completo */
+}
+
+.mint:hover {
+    opacity: 0.8;
+}
+
+.blue {
+    background: #007bff; /* Azul */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s, transform 0.2s;
+    width: 100%; /* Mantiene el botón del ancho completo */
+}
+
+.blue:hover {
+    opacity: 0.8;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.sql-data {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.sql-data h3 {
+    color: #2a5298;
+    margin-bottom: 10px;
+}
+
+.sql-data pre {
+    background: #2a5298;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.ejemplos-container, .prevencion-container {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.ejemplos-container ul, .prevencion-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ejemplos-container li, .prevencion-container li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.ejemplos-container code, .prevencion-container code {
+    background: #2a5298;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Estilo para el bloque de código */
+pre {
+    background: #f9f9f9; /* Fondo gris claro */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto; /* Habilita desplazamiento horizontal si es necesario */
+    white-space: pre-wrap; /* Permite que el texto se ajuste en múltiples líneas */
+    word-wrap: break-word; /* Rompe palabras largas si es necesario */
+    max-width: 100%; /* Asegura que no desborde el contenedor */
+}
+
+/* Para pantallas más pequeñas */
+@media (max-width: 600px) {
+    pre {
+        font-size: 14px; /* Reduce el tamaño del texto en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .welcome-image img {
+        width: 100%;
+    }
+}
