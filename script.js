@@ -105,3 +105,9 @@ function closeModal() {
     const welcomeModal = document.getElementById('welcome-modal');
     welcomeModal.style.display = 'none';
 }
+
+// Agrega el evento al botón
+document.getElementById('scroll-button').addEventListener('click', function() {
+    // Desplaza la página hasta el formulario
+    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+});
